@@ -1,0 +1,159 @@
+Disassembly Listing for Test1
+Generated From:
+C:/ES_Proj/Project/Test/Test1.X/dist/default/production/Test1.X.production.elf
+14-Feb-2017 11:38:04
+
+---  C:/ES_Proj/Project/Test/Test1.X/pwm.c  -------------------------------------------------------------
+1:             /*
+2:              * File:   temlate.c
+3:              * Author: d00152869
+4:              *
+5:              * Created on 14 February 2017, 09:36
+6:              */
+7:             
+8:             #include <xc.h>
+9:             
+10:            #define _XTAL_FREQ 8000000
+11:            
+12:            void delay_ms(unsigned int msec);
+13:            void delay_s(unsigned int sec);
+14:            void initial(void);
+15:            
+16:            void main(void) {
+17:                initial();
+07AA  3187     MOVLP 0x7
+07AB  279C     CALL 0x79C
+07AC  3187     MOVLP 0x7
+18:                while(1) {
+19:                    unsigned char duty[3] = {30, 60, 90};
+07AD  087B     MOVF __pdataCOMMON, W
+07AE  00F7     MOVWF duty
+07AF  087C     MOVF 0x7C, W
+07B0  00F8     MOVWF 0x78
+07B1  087D     MOVF 0x7D, W
+07B2  00F9     MOVWF 0x79
+20:                    unsigned char i;    
+21:                    for (i=0; i<3 ; i++)
+07B3  01FA     CLRF i
+07B4  3003     MOVLW 0x3
+07B5  027A     SUBWF i, W
+07B6  1803     BTFSC STATUS, 0x0
+07B7  2FAD     GOTO 0x7AD
+07C6  3001     MOVLW 0x1
+07C7  00F6     MOVWF 0x76
+07C8  0876     MOVF 0x76, W
+07C9  07FA     ADDWF i, F
+07CA  2FB4     GOTO 0x7B4
+22:                    {
+23:                        CCPR1L = duty[i];
+07B8  087A     MOVF i, W
+07B9  3E77     ADDLW 0x77
+07BA  0086     MOVWF FSR1
+07BB  0187     CLRF FSR1H
+07BC  0801     MOVF INDF1, W
+07BD  0025     MOVLB 0x5
+07BE  0091     MOVWF CCPR1
+24:                        delay_s(5);
+07BF  3005     MOVLW 0x5
+07C0  00F0     MOVWF 0x2F0
+07C1  3000     MOVLW 0x0
+07C2  00F1     MOVWF 0x2F1
+07C3  3187     MOVLP 0x7
+07C4  27CB     CALL 0x7CB
+07C5  3187     MOVLP 0x7
+07C6  3001     MOVLW 0x1
+07C7  00F6     MOVWF 0x2F6
+07C8  0876     MOVF 0x2F6, W
+07C9  07FA     ADDWF 0x2FA, F
+07CA  2FB4     GOTO 0x7B4
+25:                    }
+26:                }
+27:            }
+28:            
+29:            void initial(void) {
+30:                TRISC = 0x00;
+079C  0021     MOVLB 0x1
+079D  018E     CLRF TRISC
+31:                OSCCON = 0b01110011;
+079E  3073     MOVLW 0x73
+079F  0099     MOVWF OSCCON
+32:                T2CON = 0x80;
+07A0  3080     MOVLW 0x80
+07A1  0020     MOVLB 0x0
+07A2  009C     MOVWF T2CON
+33:                CCP1CON = 0b10001100;
+07A3  308C     MOVLW 0x8C
+07A4  0025     MOVLB 0x5
+07A5  0093     MOVWF CCP1CON
+34:                PR2 = 0x63; //99
+07A6  3063     MOVLW 0x63
+07A7  0020     MOVLB 0x0
+07A8  009B     MOVWF T2PR
+35:            }
+07A9  0008     RETURN
+36:            
+37:            void delay_s(unsigned int sec)
+38:            {
+39:                unsigned char j;
+40:                for (j=0;j<sec;j++) {
+07CB  01F4     CLRF j
+07CC  0874     MOVF j, W
+07CD  00F2     MOVWF 0x72
+07CE  01F3     CLRF 0x73
+07CF  0871     MOVF 0x71, W
+07D0  0273     SUBWF 0x73, W
+07D1  1D03     BTFSS STATUS, 0x2
+07D2  2FD5     GOTO 0x7D5
+07D3  0870     MOVF __pcstackCOMMON, W
+07D4  0272     SUBWF 0x72, W
+07D5  1803     BTFSC STATUS, 0x0
+07D6  0008     RETURN
+07ED  3001     MOVLW 0x1
+41:                    unsigned char i;
+42:                    for (i=0;i<25;i++) {
+07D7  01F5     CLRF i
+07D8  3019     MOVLW 0x19
+07D9  0275     SUBWF i, W
+07DA  1803     BTFSC STATUS, 0x0
+07DB  2FED     GOTO 0x7ED
+07E5  3001     MOVLW 0x1
+07E6  00F2     MOVWF 0x72
+07E7  0872     MOVF 0x72, W
+07E8  07F5     ADDWF i, F
+07E9  3019     MOVLW 0x19
+07EA  0275     SUBWF i, W
+07EB  1C03     BTFSS STATUS, 0x0
+07EC  2FDC     GOTO 0x7DC
+43:                        __delay_ms(40);
+07DC  3068     MOVLW 0x68
+07DD  00F3     MOVWF 0x73
+07DE  30E4     MOVLW 0xE4
+07DF  00F2     MOVWF 0x72
+07E0  0BF2     DECFSZ 0x72, F
+07E1  2FE0     GOTO 0x7E0
+07E2  0BF3     DECFSZ 0x73, F
+07E3  2FE0     GOTO 0x7E0
+07E4  0000     NOP
+07E5  3001     MOVLW 0x1
+07E6  00F2     MOVWF 0x72
+07E7  0872     MOVF 0x72, W
+07E8  07F5     ADDWF i, F
+07E9  3019     MOVLW 0x19
+07EA  0275     SUBWF i, W
+07EB  1C03     BTFSS STATUS, 0x0
+07EC  2FDC     GOTO 0x7DC
+07ED  3001     MOVLW 0x1
+07EE  00F2     MOVWF 0x72
+07EF  0872     MOVF 0x72, W
+07F0  07F4     ADDWF j, F
+07F1  2FCC     GOTO 0x7CC
+44:                    }
+45:                }
+46:            }
+47:            
+48:            void delay_ms(unsigned int msec) {
+49:                unsigned int i;
+50:                for (i=0;i<msec;i++) {
+51:                    __delay_ms(1);
+52:                }
+53:            }

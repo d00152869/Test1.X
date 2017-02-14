@@ -1,0 +1,41 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"6 configurationbits.c
+[p x FOSC=INTOSC ]
+"7
+[p x PWRTE=OFF ]
+"8
+[p x MCLRE=OFF ]
+"9
+[p x CP=OFF ]
+"10
+[p x BOREN=OFF ]
+"11
+[p x CLKOUTEN=OFF ]
+"12
+[p x IESO=ON ]
+"13
+[p x FCMEN=ON ]
+"16
+[p x WRT=OFF ]
+"17
+[p x PPS1WAY=ON ]
+"18
+[p x ZCD=OFF ]
+"19
+[p x PLLEN=ON ]
+"20
+[p x STVREN=ON ]
+"21
+[p x BORV=LO ]
+"22
+[p x LPBOR=OFF ]
+"23
+[p x LVP=ON ]
+"26
+[p x WDTCPS=WDTCPS1F ]
+"27
+[p x WDTE=OFF ]
+"28
+[p x WDTCWS=WDTCWSSW ]
+"29
+[p x WDTCCS=SWC ]
