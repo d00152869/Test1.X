@@ -1,16 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
-"14 blink.c
+"14 controller.c
 [v _initial `(v ~T0 @X0 0 ef ]
-"469 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1615.h
-[s S32 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S32 . RC0 RC1 RC2 RC3 RC4 RC5 ]
-"468
-[u S31 `S32 1 ]
-[n S31 . . ]
-"478
-[v _PORTCbits `VS31 ~T0 @X0 0 e@14 ]
-"2286
+"2286 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1615.h
 [s S119 :1 `uc 1 :1 `uc 1 :5 `uc 1 ]
 [n S119 . ADON GO_nDONE CHS ]
 "2291
@@ -28,13 +20,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ADRESH `Vuc ~T0 @X0 0 e@156 ]
 "2242
 [v _ADRESL `Vuc ~T0 @X0 0 e@155 ]
-"13 blink.c
-[v _delay_1s `(v ~T0 @X0 0 ef ]
-"28 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h
-[v ___nop `(v ~T0 @X0 0 ef ]
-[p i ___nop ]
+"11185
+[v _PWM3DCH `Vuc ~T0 @X0 0 e@1560 ]
+"12 controller.c
+[v _delay_ms `(v ~T0 @X0 0 ef1`ui ]
 "1578 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1615.h
 [v _TRISC `Vuc ~T0 @X0 0 e@142 ]
+"2110
+[v _OSCCON `Vuc ~T0 @X0 0 e@153 ]
 "1584
 [s S90 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S90 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 ]
@@ -58,8 +51,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S160 . . . ]
 "3170
 [v _ANSELCbits `VS160 ~T0 @X0 0 e@398 ]
-"2110
-[v _OSCCON `Vuc ~T0 @X0 0 e@153 ]
+"1105
+[s S68 :4 `uc 1 :3 `uc 1 :1 `uc 1 ]
+[n S68 . OUTPS CKPS ON ]
+"1110
+[s S69 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S69 . OUTPS0 OUTPS1 OUTPS2 OUTPS3 CKPS0 CKPS1 CKPS2 ]
+"1119
+[s S70 :4 `uc 1 :3 `uc 1 :1 `uc 1 ]
+[n S70 . T2OUTPS T2CKPS T2ON ]
+"1124
+[s S71 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S71 . T2OUTPS0 T2OUTPS1 T2OUTPS2 T2OUTPS3 T2CKPS0 T2CKPS1 T2CKPS2 TMR2ON ]
+"1104
+[u S67 `S68 1 `S69 1 `S70 1 `S71 1 ]
+[n S67 . . . . . ]
+"1135
+[v _T2CONbits `VS67 ~T0 @X0 0 e@28 ]
+"22178
+[v _RC5PPS `Vuc ~T0 @X0 0 e@3749 ]
+"11354
+[v _PWM3CON `Vuc ~T0 @X0 0 e@1561 ]
+"1051
+[v _PR2 `Vuc ~T0 @X0 0 e@27 ]
+"13 controller.c
+[v _delay_s `(v ~T0 @X0 0 ef1`ui ]
 [v F11552 `(v ~T0 @X0 1 tf1`ul ]
 "152 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF11552 ~T0 @X0 0 e ]
@@ -10469,12 +10485,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;blink.c: 13: void delay_1s(void);
-[; ;blink.c: 14: void initial(void);
-"16 blink.c
+[; ;controller.c: 12: void delay_ms(unsigned int msec);
+[; ;controller.c: 13: void delay_s(unsigned int sec);
+[; ;controller.c: 14: void initial(void);
+"16 controller.c
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;blink.c: 16: void main(void) {
+[; ;controller.c: 16: void main(void) {
 [e :U _main ]
 [f ]
 "17
@@ -10483,127 +10500,326 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Voltage `f ~T0 @X0 1 a ]
 "19
 [v _resistance `f ~T0 @X0 1 a ]
-[; ;blink.c: 17: float ADCres;
-[; ;blink.c: 18: float Voltage;
-[; ;blink.c: 19: float resistance;
-[; ;blink.c: 20: initial();
 "20
-[e ( _initial ..  ]
-[; ;blink.c: 21: while(1) {
+[v _setpoint `ui ~T0 @X0 1 a ]
+[; ;controller.c: 17: float ADCres;
+[; ;controller.c: 18: float Voltage;
+[; ;controller.c: 19: float resistance;
+[; ;controller.c: 20: unsigned int setpoint = 5000;
+[e = _setpoint -> -> 5000 `i `ui ]
 "21
+[v _error `l ~T0 @X0 1 a ]
+[; ;controller.c: 21: signed long error = 0;
+[e = _error -> -> 0 `i `l ]
+"22
+[v _error_state `uc ~T0 @X0 1 a ]
+[; ;controller.c: 22: unsigned char error_state = 0;
+[e = _error_state -> -> 0 `i `uc ]
+"23
+[v _error_range `uc ~T0 @X0 1 a ]
+[; ;controller.c: 23: unsigned char error_range = 0;
+[e = _error_range -> -> 0 `i `uc ]
+"24
+[v _pwmrate `i ~T0 @X0 1 a ]
+[; ;controller.c: 24: signed int pwmrate = 0;
+[e = _pwmrate -> 0 `i ]
+[; ;controller.c: 25: initial();
+"25
+[e ( _initial ..  ]
+[; ;controller.c: 27: while(1) {
+"27
 [e :U 1178 ]
 {
-[; ;blink.c: 22: PORTCbits.RC0 = !PORTCbits.RC0;
-"22
-[e = . . _PORTCbits 0 0 -> -> ! != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-[; ;blink.c: 23: ADCON0bits.GO_nDONE = 1;
-"23
+[; ;controller.c: 28: ADCON0bits.GO_nDONE = 1;
+"28
 [e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
-[; ;blink.c: 24: while(ADCON0bits.GO_nDONE);
-"24
+[; ;controller.c: 29: while(ADCON0bits.GO_nDONE);
+"29
 [e $U 1180  ]
 [e :U 1181 ]
 [e :U 1180 ]
 [e $ != -> . . _ADCON0bits 0 1 `i -> -> -> 0 `i `Vuc `i 1181  ]
 [e :U 1182 ]
-[; ;blink.c: 25: ADCres = ((ADRESH<<8)+ADRESL);
-"25
-[e = _ADCres -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `f ]
-[; ;blink.c: 26: Voltage = ADCres * 5 / 1024;
-"26
-[e = _Voltage / * _ADCres -> -> 5 `i `f -> -> 1024 `i `f ]
-[; ;blink.c: 27: resistance = (Voltage * 10000) / (5 - Voltage);
-"27
-[e = _resistance / * _Voltage -> -> 10000 `i `f - -> -> 5 `i `f _Voltage ]
-[; ;blink.c: 28: delay_1s();
-"28
-[e ( _delay_1s ..  ]
-[; ;blink.c: 29: __nop();
-"29
-[e ( ___nop ..  ]
+[; ;controller.c: 30: ADCres = ((ADRESH<<8)+ADRESL);
 "30
+[e = _ADCres -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `f ]
+[; ;controller.c: 31: Voltage = ADCres * 5 / 1024;
+"31
+[e = _Voltage / * _ADCres -> -> 5 `i `f -> -> 1024 `i `f ]
+[; ;controller.c: 32: resistance = (Voltage * 10000) / (5 - Voltage);
+"32
+[e = _resistance / * _Voltage -> -> 10000 `i `f - -> -> 5 `i `f _Voltage ]
+[; ;controller.c: 33: error = resistance - setpoint;
+"33
+[e = _error -> - _resistance -> _setpoint `f `l ]
+[; ;controller.c: 34: if(error>0) {
+"34
+[e $ ! > _error -> -> 0 `i `l 1183  ]
+{
+[; ;controller.c: 35: error_state = 1;
+"35
+[e = _error_state -> -> 1 `i `uc ]
+"36
+}
+[; ;controller.c: 36: }
+[e $U 1184  ]
+"37
+[e :U 1183 ]
+[; ;controller.c: 37: else {
+{
+[; ;controller.c: 38: error_state = 0;
+"38
+[e = _error_state -> -> 0 `i `uc ]
+[; ;controller.c: 39: error = error * -1;
+"39
+[e = _error * _error -> -U -> 1 `i `l ]
+"40
+}
+[e :U 1184 ]
+[; ;controller.c: 40: }
+[; ;controller.c: 41: if(error<100) {
+"41
+[e $ ! < _error -> -> 100 `i `l 1185  ]
+{
+[; ;controller.c: 42: error_range = 1;
+"42
+[e = _error_range -> -> 1 `i `uc ]
+"43
+}
+[; ;controller.c: 43: }
+[e $U 1186  ]
+"44
+[e :U 1185 ]
+[; ;controller.c: 44: else if(error<1000) {
+[e $ ! < _error -> -> 1000 `i `l 1187  ]
+{
+[; ;controller.c: 45: error_range = 5;
+"45
+[e = _error_range -> -> 5 `i `uc ]
+"46
+}
+[; ;controller.c: 46: }
+[e $U 1188  ]
+"47
+[e :U 1187 ]
+[; ;controller.c: 47: else {
+{
+[; ;controller.c: 48: error_range = 10;
+"48
+[e = _error_range -> -> 10 `i `uc ]
+"49
+}
+[e :U 1188 ]
+[e :U 1186 ]
+[; ;controller.c: 49: }
+[; ;controller.c: 50: if(error_state==1) {
+"50
+[e $ ! == -> _error_state `i -> 1 `i 1189  ]
+{
+[; ;controller.c: 51: pwmrate = pwmrate + error_range;
+"51
+[e = _pwmrate + _pwmrate -> _error_range `i ]
+[; ;controller.c: 52: if(pwmrate >100) {
+"52
+[e $ ! > _pwmrate -> 100 `i 1190  ]
+{
+[; ;controller.c: 53: pwmrate = 100;
+"53
+[e = _pwmrate -> 100 `i ]
+"54
+}
+[e :U 1190 ]
+"55
+}
+[; ;controller.c: 54: }
+[; ;controller.c: 55: }
+[e $U 1191  ]
+"56
+[e :U 1189 ]
+[; ;controller.c: 56: else {
+{
+[; ;controller.c: 57: pwmrate = pwmrate - error_range;
+"57
+[e = _pwmrate - _pwmrate -> _error_range `i ]
+[; ;controller.c: 58: if(pwmrate < 0) {
+"58
+[e $ ! < _pwmrate -> 0 `i 1192  ]
+{
+[; ;controller.c: 59: pwmrate = 0;
+"59
+[e = _pwmrate -> 0 `i ]
+"60
+}
+[e :U 1192 ]
+"61
+}
+[e :U 1191 ]
+[; ;controller.c: 60: }
+[; ;controller.c: 61: }
+[; ;controller.c: 62: PWM3DCH = pwmrate;
+"62
+[e = _PWM3DCH -> _pwmrate `uc ]
+[; ;controller.c: 63: delay_ms(50);
+"63
+[e ( _delay_ms (1 -> -> 50 `i `ui ]
+"64
 }
 [e :U 1177 ]
-"21
+"27
 [e $U 1178  ]
 [e :U 1179 ]
-[; ;blink.c: 30: }
-[; ;blink.c: 31: }
-"31
+[; ;controller.c: 64: }
+[; ;controller.c: 65: }
+"65
 [e :UE 1176 ]
 }
-"33
+"67
 [v _initial `(v ~T0 @X0 1 ef ]
 {
-[; ;blink.c: 33: void initial(void) {
+[; ;controller.c: 67: void initial(void) {
 [e :U _initial ]
 [f ]
-[; ;blink.c: 35: TRISC = 0x00;
-"35
+[; ;controller.c: 68: TRISC = 0x00;
+"68
 [e = _TRISC -> -> 0 `i `uc ]
-[; ;blink.c: 36: TRISCbits.TRISC3 = 1;
-"36
-[e = . . _TRISCbits 0 3 -> -> 1 `i `uc ]
-[; ;blink.c: 38: ADCON0 = 0b00011101;
-"38
-[e = _ADCON0 -> -> 29 `i `uc ]
-[; ;blink.c: 39: ADCON1 = 0b10010000;
-"39
-[e = _ADCON1 -> -> 144 `i `uc ]
-[; ;blink.c: 40: ANSELCbits.ANSC3 = 1;
-"40
-[e = . . _ANSELCbits 0 3 -> -> 1 `i `uc ]
-[; ;blink.c: 41: OSCCON = 0b01110011;
-"41
+[; ;controller.c: 69: OSCCON = 0b01110011;
+"69
 [e = _OSCCON -> -> 115 `i `uc ]
-[; ;blink.c: 42: PORTCbits.RC0 = 1;
-"42
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[; ;blink.c: 43: delay_1s();
-"43
-[e ( _delay_1s ..  ]
-[; ;blink.c: 44: PORTCbits.RC0 = 0;
-"44
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;blink.c: 45: delay_1s();
-"45
-[e ( _delay_1s ..  ]
-[; ;blink.c: 46: }
-"46
-[e :UE 1183 ]
+[; ;controller.c: 70: TRISCbits.TRISC3 = 1;
+"70
+[e = . . _TRISCbits 0 3 -> -> 1 `i `uc ]
+[; ;controller.c: 72: ADCON0 = 0b00011101;
+"72
+[e = _ADCON0 -> -> 29 `i `uc ]
+[; ;controller.c: 73: ADCON1 = 0b10010000;
+"73
+[e = _ADCON1 -> -> 144 `i `uc ]
+[; ;controller.c: 74: ANSELCbits.ANSC3 = 1;
+"74
+[e = . . _ANSELCbits 0 3 -> -> 1 `i `uc ]
+[; ;controller.c: 75: T2CONbits.ON = 1;
+"75
+[e = . . _T2CONbits 0 2 -> -> 1 `i `uc ]
+[; ;controller.c: 77: RC5PPS = 0b00001110;
+"77
+[e = _RC5PPS -> -> 14 `i `uc ]
+[; ;controller.c: 78: PWM3CON = 0x80;
+"78
+[e = _PWM3CON -> -> 128 `i `uc ]
+[; ;controller.c: 79: PR2 = 99;
+"79
+[e = _PR2 -> -> 99 `i `uc ]
+[; ;controller.c: 80: PWM3DCH = 20;
+"80
+[e = _PWM3DCH -> -> 20 `i `uc ]
+[; ;controller.c: 81: delay_s(1);
+"81
+[e ( _delay_s (1 -> -> 1 `i `ui ]
+[; ;controller.c: 82: PWM3DCH = 50;
+"82
+[e = _PWM3DCH -> -> 50 `i `uc ]
+[; ;controller.c: 83: delay_s(1);
+"83
+[e ( _delay_s (1 -> -> 1 `i `ui ]
+[; ;controller.c: 84: PWM3DCH = 80;
+"84
+[e = _PWM3DCH -> -> 80 `i `uc ]
+[; ;controller.c: 85: delay_s(1);
+"85
+[e ( _delay_s (1 -> -> 1 `i `ui ]
+[; ;controller.c: 86: }
+"86
+[e :UE 1193 ]
 }
-"48
-[v _delay_1s `(v ~T0 @X0 1 ef ]
-"49
+"88
+[v _delay_s `(v ~T0 @X0 1 ef1`ui ]
+"89
 {
-[; ;blink.c: 48: void delay_1s(void)
-[; ;blink.c: 49: {
-[e :U _delay_1s ]
+[; ;controller.c: 88: void delay_s(unsigned int sec)
+[; ;controller.c: 89: {
+[e :U _delay_s ]
+"88
+[v _sec `ui ~T0 @X0 1 r1 ]
+"89
 [f ]
-"50
+"90
+[v _j `uc ~T0 @X0 1 a ]
+[; ;controller.c: 90: unsigned char j;
+[; ;controller.c: 91: for (j=0;j<sec;j++) {
+"91
+{
+[e = _j -> -> 0 `i `uc ]
+[e $U 1198  ]
+[e :U 1195 ]
+{
+"92
 [v _i `uc ~T0 @X0 1 a ]
-[; ;blink.c: 50: unsigned char i;
-[; ;blink.c: 51: for (i=0;i<25;i++) {
-"51
+[; ;controller.c: 92: unsigned char i;
+[; ;controller.c: 93: for (i=0;i<25;i++) {
+"93
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 25 `i 1185  ]
-[e $U 1186  ]
-[e :U 1185 ]
+[e $ < -> _i `i -> 25 `i 1199  ]
+[e $U 1200  ]
+[e :U 1199 ]
 {
-[; ;blink.c: 52: _delay((unsigned long)((40)*(8000000/4000.0)));
-"52
+[; ;controller.c: 94: _delay((unsigned long)((40)*(8000000/4000.0)));
+"94
 [e ( __delay (1 -> * -> -> 40 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"53
+"95
 }
-"51
+"93
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 25 `i 1185  ]
-[e :U 1186 ]
-"53
+[e $ < -> _i `i -> 25 `i 1199  ]
+[e :U 1200 ]
+"95
 }
-[; ;blink.c: 53: }
-[; ;blink.c: 54: }
-"54
-[e :UE 1184 ]
+"96
+}
+"91
+[e ++ _j -> -> 1 `i `uc ]
+[e :U 1198 ]
+[e $ < -> _j `ui _sec 1195  ]
+[e :U 1196 ]
+"96
+}
+[; ;controller.c: 95: }
+[; ;controller.c: 96: }
+[; ;controller.c: 97: }
+"97
+[e :UE 1194 ]
+}
+"99
+[v _delay_ms `(v ~T0 @X0 1 ef1`ui ]
+{
+[; ;controller.c: 99: void delay_ms(unsigned int msec) {
+[e :U _delay_ms ]
+[v _msec `ui ~T0 @X0 1 r1 ]
+[f ]
+"100
+[v _i `ui ~T0 @X0 1 a ]
+[; ;controller.c: 100: unsigned int i;
+[; ;controller.c: 101: for (i=0;i<msec;i++) {
+"101
+{
+[e = _i -> -> 0 `i `ui ]
+[e $U 1206  ]
+[e :U 1203 ]
+{
+[; ;controller.c: 102: _delay((unsigned long)((1)*(8000000/4000.0)));
+"102
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+"103
+}
+"101
+[e ++ _i -> -> 1 `i `ui ]
+[e :U 1206 ]
+[e $ < _i _msec 1203  ]
+[e :U 1204 ]
+"103
+}
+[; ;controller.c: 103: }
+[; ;controller.c: 104: }
+"104
+[e :UE 1202 ]
 }

@@ -16,7 +16,14 @@ void initial(void);
 void main(void) {
     initial();
     //CCPR1L = 20;
-    PWM3DCH = 20;
+    while(1) {
+        PWM3DCH = 20;
+        delay_s(1);
+        PWM3DCH = 50;
+        delay_s(1);
+        PWM3DCH = 80;
+        delay_s(1);
+    }
 }
 
 void initial(void) {
